@@ -13,10 +13,7 @@ angular.module('myApp.services',['ngResource'])
           // data.data.responseData.feed.entries 
           console.log(data);
           if (data.status === 200)
-          {
-            console.log(data);
             d.resolve(data.data.responseData.feed.entries);
-          } 
           else
             d.reject(data);
         });
@@ -26,7 +23,13 @@ angular.module('myApp.services',['ngResource'])
   return service; 
 })
 
-.factory('Share', function($resource) {	
+
+.factory('Share', function($resource) { 
+  var Share = $resource('/api/shares/:id.json',
+    {id: '@id'},
+    {}
+  );
+  return Share;
 })
 
 .factory("SessionService", function($http, $q) {
